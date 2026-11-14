@@ -7,7 +7,9 @@ export function Footer() {
   const toggleNo3d = useUI((s) => s.toggleNo3d);
   return (
     <footer className="pie">
-      <img className="pie__palabra" src="/brand/palabra.svg" alt={site.name} width={835} height={69} loading="lazy" />
+      <p className="pie__palabra">
+        Truke<span>ados</span>
+      </p>
       <div className="pie__fila">
         <p>{site.tagline}</p>
         <button type="button" className="pie__boton" onClick={toggleNo3d} aria-pressed={no3d}>
@@ -19,7 +21,7 @@ export function Footer() {
         <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">
           CC BY-SA 3.0
         </a>
-        , vectorizadas por gjenkins20. Tipografía: Archivo, de Omnibus-Type (OFL).
+        , vectorizadas por gjenkins20. Tipografía: Hanken Grotesk, de Hanken Design Co. (OFL).
       </p>
     </footer>
   );

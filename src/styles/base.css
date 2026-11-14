@@ -1,9 +1,9 @@
-/* Base de la landing. Colores, tipografía y medidas vienen de tokens.css (copiado del juego). */
+/* Base de la landing. Colores, tipografía y medidas vienen de brand/tokens.css (los mismos del juego). */
 
-/* Fontsource registra Archivo como "Archivo Variable" (wdth.css trae los ejes de ancho y de peso).
+/* Fontsource registra Hanken Grotesk como "Hanken Grotesk Variable" (wght.css trae el eje de peso).
    Se antepone a la familia de los tokens para usar la fuente autoalojada. */
 :root {
-  --font: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font: 'Hanken Grotesk Variable', 'Hanken Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --nav-h: 64px; /* alto de la barra de navegación (página) */
 }
 
@@ -18,9 +18,9 @@ html {
   color-scheme: dark;
 }
 
-/* La selección de texto también es de la marca: el oro, con la tinta oscura de los botones. */
+/* La selección de texto también es de la marca: el acento (blanco) con la tinta negra de los botones. */
 ::selection {
-  background: var(--oro);
+  background: var(--accent);
   color: var(--accent-ink);
 }
 
@@ -68,10 +68,10 @@ canvas {
   border: 0;
   border-radius: var(--radius);
   font-family: var(--font);
-  font-stretch: var(--narrow);
   font-weight: 650;
   font-size: var(--btn-font);
-  letter-spacing: 0.04em;
+  letter-spacing: var(--track);
+  text-transform: uppercase; /* botones en mayúsculas con aire (brand/BRAND.md §4) */
   text-decoration: none;
   cursor: pointer;
   transition:
@@ -84,7 +84,7 @@ canvas {
 }
 
 .btn--primary {
-  background: var(--oro);
+  background: var(--accent);
   color: var(--accent-ink);
 }
 
@@ -95,49 +95,11 @@ canvas {
 
 @media (hover: hover) and (pointer: fine) {
   .btn--primary:hover {
-    background: #f5cc4f; /* oro un 6 % más claro (brand/ALINEACION.md §4 propone el token --oro-hover) */
+    background: var(--accent-hover);
   }
 
   .btn--secondary:hover {
     background: var(--surface-3);
-  }
-
-  /* Reflejo de moneda: al pasar el mouse (o llegar con el teclado), la luz de la lámpara cruza el oro una
-     sola vez, como cuando se inclina una moneda sobre la mesa. Va debajo del texto (z-index -1 dentro del
-     contexto que abre `isolation`), así la tinta queda intacta. En reposo el reflejo espera afuera, a la
-     izquierda; al salir vuelve sin transición y no se ve porque ya está afuera, a la derecha. */
-  .btn--primary {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-  }
-
-  .btn--primary::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background: linear-gradient(
-      105deg,
-      transparent 34%,
-      color-mix(in oklab, var(--oro), white 45%) 50%,
-      transparent 66%
-    );
-    transform: translateX(-80%);
-  }
-
-  .btn--primary:hover::after,
-  .btn--primary:focus-visible::after {
-    transform: translateX(80%);
-    transition: transform 650ms var(--ease-out);
-  }
-}
-
-/* Con movimiento reducido, sin reflejo: queda solo el cambio de tono del hover. */
-@media (prefers-reduced-motion: reduce) {
-  .btn--primary::after {
-    content: none;
   }
 }
 

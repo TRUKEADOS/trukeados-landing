@@ -8,7 +8,7 @@
   z-index: 100;
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius);
-  background: var(--oro);
+  background: var(--accent);
   color: var(--accent-ink);
   font-weight: 650;
   text-decoration: none;
@@ -41,10 +41,9 @@
   align-items: center;
   padding: 3px 10px 3px 8px;
   border-left: 3px solid var(--team0);
-  background: rgb(18 18 18 / 0.9); /* --panel del juego */
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
   color: var(--text);
   font-family: var(--font);
-  font-stretch: var(--narrow);
   font-weight: 600;
   font-size: 16px;
   letter-spacing: 0.04em;
@@ -56,7 +55,7 @@
 }
 
 .placa__chip {
-  color: var(--oro); /* el instante en que alguien te mira: el otro uso del oro */
+  color: var(--text); /* el instante en que alguien te mira */
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -77,6 +76,7 @@
 }
 
 .nav__logo {
+  color: inherit; /* sin el azul de enlace si la imagen no carga */
   display: inline-flex;
   align-items: center;
   min-height: 44px; /* el área de toque, no el logo */
@@ -95,10 +95,10 @@
 
 .nav__links a {
   color: var(--text-dim);
-  font-stretch: var(--narrow);
   font-weight: 650;
   font-size: var(--fs-small);
   letter-spacing: var(--track-label);
+  text-transform: uppercase; /* enlaces de barra: estilo Rótulo */
   text-decoration: none;
   transition: color var(--dur-quick) var(--ease-out);
 }
@@ -142,7 +142,7 @@ footer {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgb(18 18 18 / 0.9) 0%, rgb(18 18 18 / 0.6) 34%, rgb(18 18 18 / 0) 62%);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--bg) 90%, transparent) 0%, color-mix(in srgb, var(--bg) 60%, transparent) 34%, transparent 62%);
   pointer-events: none;
 }
 
@@ -154,8 +154,8 @@ footer {
 
 .panel h1 {
   margin: 0;
-  font-stretch: var(--wide);
-  font-weight: 850;
+  font-weight: 800;
+  text-transform: uppercase; /* Display (brand/BRAND.md §4) */
   /* Con el texto al 100 % no cambia nada (en 390 da unos 54 px y el tope en vw, 62); con el texto al 200 %
      evita que "verdad." se salga de la columna. */
   font-size: min(var(--fs-display), 16vw);
@@ -166,9 +166,9 @@ footer {
 
 .panel h2 {
   margin: 0;
-  font-stretch: var(--semi-wide);
   font-weight: 800;
   font-size: min(var(--fs-title), 3.5rem, 12vw); /* dos líneas como máximo; 12vw: texto al 200 % en celular */
+  text-transform: uppercase; /* Título (brand/BRAND.md §4) */
   overflow-wrap: break-word;
   line-height: var(--lh-title);
   letter-spacing: var(--track-title);
@@ -197,7 +197,7 @@ footer {
 
 .section--inicio .section__sticky::before,
 .section--sentate .section__sticky::before {
-  background: linear-gradient(0deg, rgb(18 18 18 / 0.94) 0%, rgb(18 18 18 / 0.72) 34%, rgb(18 18 18 / 0) 62%);
+  background: linear-gradient(0deg, color-mix(in srgb, var(--bg) 94%, transparent) 0%, color-mix(in srgb, var(--bg) 72%, transparent) 34%, transparent 62%);
 }
 
 .section--inicio .panel {
@@ -309,7 +309,6 @@ footer {
 
 .nombre__campo span {
   color: var(--text-dim);
-  font-stretch: var(--narrow);
   font-weight: 650;
   font-size: var(--fs-small);
 }
@@ -391,14 +390,25 @@ footer {
 
 /* ---------- pie: el nombre vuelve a todo el ancho ---------- */
 .pie {
+  container-type: inline-size;
   padding: var(--section-gap) var(--gutter) var(--space-6);
   background: var(--bg);
 }
 
+/* El nombre en texto (TRUKE 800 + ADOS 400), del ancho exacto del pie: el tamaño sale del ancho del contenedor. */
 .pie__palabra {
-  width: 100%;
-  height: auto;
-  margin-bottom: var(--space-7);
+  display: block;
+  margin: 0 0 var(--space-7);
+  font-weight: 800;
+  font-size: calc(100cqi / 5.56); /* 5.53: ancho de la palabra en em, medido con Hanken; un poco de aire */
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pie__palabra span {
+  font-weight: 400;
 }
 
 .pie__fila {
@@ -421,7 +431,6 @@ footer {
   background: none;
   color: var(--text-dim);
   font: inherit;
-  font-stretch: var(--narrow);
   font-weight: 650;
   font-size: var(--fs-small);
   text-decoration: underline;
@@ -439,13 +448,13 @@ footer {
 .pie__legal {
   max-width: 90ch;
   margin: var(--space-6) 0 0;
-  color: var(--muted);
+  color: var(--text-dim); /* --muted no llega a AA y estos créditos son obligatorios */
   font-size: var(--fs-micro);
   line-height: 1.45;
 }
 
 .pie__legal a {
-  color: var(--text-dim);
+  color: var(--text);
 }
 
 /* ---------- versión sin 3D (o sin WebGL): flujo normal, sin texto fijo ---------- */
@@ -499,7 +508,7 @@ main[data-no3d='true'] .section__sticky::before {
   }
 
   .section__sticky::before {
-    background: linear-gradient(0deg, rgb(18 18 18 / 0.94) 0%, rgb(18 18 18 / 0.7) 42%, rgb(18 18 18 / 0) 70%);
+    background: linear-gradient(0deg, color-mix(in srgb, var(--bg) 94%, transparent) 0%, color-mix(in srgb, var(--bg) 70%, transparent) 42%, transparent 70%);
   }
 
   /* La leyenda pasa a una tira que se desliza de costado: el panel no tapa la cara. */
@@ -545,6 +554,11 @@ main[data-no3d='true'] .section__sticky::before {
 
   .nombre__cara {
     --face-size: 96px;
+  }
+
+  /* En mayúsculas los títulos son más anchos: tope menor para que sigan en dos líneas. */
+  .panel h2 {
+    font-size: min(var(--fs-title), 3.5rem, 8.6vw); /* 33 px en 390: un poco menos que el mínimo de la marca, para que "Acá también se puede hacer trampa." no pase a tres líneas */
   }
 }
 
@@ -626,7 +640,7 @@ main[data-no3d='true'] .section__sticky::before {
   padding: 8px 10px;
   border-radius: var(--radius);
   background: rgb(0 0 0 / 0.8);
-  color: #e6e6e6;
+  color: var(--text);
   font: 500 11px/1.45 var(--font);
   font-variant-numeric: tabular-nums;
   white-space: pre-wrap;
