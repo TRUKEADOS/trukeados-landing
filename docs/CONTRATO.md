@@ -60,7 +60,7 @@ resto, la estadía (el texto queda fijo). Lo que cambia en la escena se reparte 
 | `mirada` | Vuelve la luz | Coca y Tito se miran |
 | `trampa` | Las cabezas vuelven a la mesa | La carta de arriba se levanta, quemada, y deja ver la de abajo |
 | `mesas` | La carta vuelve a su lugar | La mesa pasa de cuatro a seis lugares |
-| `sentate` | La mesa vuelve a cuatro, antes de que la cámara llegue a tu silla | Los tres te miran: es el instante del dorado |
+| `sentate` | La mesa vuelve a cuatro, antes de que la cámara llegue a tu silla | Los tres te miran: aparecen las placas con "te mira" |
 
 **Composición en pantalla.** El inicio y el final llevan la escena arriba y el texto abajo en todos los tamaños:
 el recorrido termina como empezó, con la vista del juego entera. Las demás secciones llevan el texto a la
@@ -77,8 +77,8 @@ cara. El nombre todavía no viaja al juego; para eso hace falta el cambio `?nomb
 
 ## 4. Biblia de estilo
 
-Clima, metáfora y materiales de la landing. Color y tipografía, en [brand/BRAND.md](brand/BRAND.md) §3 y §4. La landing
-todavía no aplica esos valores: ver [brand/ALINEACION.md](brand/ALINEACION.md) §2.
+Clima, metáfora y materiales de la landing. Color y tipografía, en [brand/BRAND.md](brand/BRAND.md) §3 y §4: blanco y
+negro, en Hanken Grotesk, desde la migración del 2026-11-14 (ver «Migración a blanco y negro»).
 
 - **Clima**: nocturno, de barrio, en voz baja (como cuando se pasa una seña).
 - **Metáfora**: el bar. El scroll es entrar y sentarte a la mesa.
@@ -87,7 +87,6 @@ todavía no aplica esos valores: ver [brand/ALINEACION.md](brand/ALINEACION.md) 
   planos, como en el juego. Solo brilla la lámpara.
 - **Movimiento dominante**: travelling hacia la mesa, cabezas que giran para mirar, cartas que se asientan. Una sola cámara continua.
 - **Ritmo**: lento al entrar, rápido en las señas, pausa en la trampa, quieto al sentarse.
-- **Excepción**: el reflejo de moneda de los botones dorados; ver «Después del cierre».
 - **Tres clichés que se evitan**:
   1. Partículas o humo flotando "de ambiente".
   2. Brillo en todo: bloom, neón, dorado de casino.
@@ -112,8 +111,8 @@ Se hicieron tres estudios del mismo bar: de pie en la puerta (A), primer plano d
 - Mientras Cacho hace las señas, la leyenda marca la que está haciendo (`ui/SenasList.tsx` lee `rig`).
 - La carta quemada en primer plano usa bordes carbonizados sin brasas (`charredTexture`), como la versión
   sin 3D: las brasas del juego, a ese tamaño y bajo la lámpara, se veían como manchas naranjas.
-- El instante dorado (fase 7): al sentarte aparecen las placas de nombre del juego arriba de cada jugador
-  (`brand/COMPONENTES.md` §6), con "te mira" en oro. Son HTML sobre el canvas, se ubican en cada cuadro y
+- El instante en que te miran (fase 7): al sentarte aparecen las placas de nombre del juego arriba de cada jugador
+  (`brand/COMPONENTES.md` §6), con "te mira". Son HTML sobre el canvas, se ubican en cada cuadro y
   nunca salen de la pantalla: desde tu silla, Coca y Tito quedan en los bordes.
 - Entrada: la escena aparece con un fundido cuando dibujó el primer cuadro, y la cámara llega desde un poco más
   atrás. Con movimiento reducido, sin recorrido.
@@ -155,7 +154,7 @@ corridas del build final, con la mediana y el rango.
   GPU (SwiftShader) es lento. Con GPU probablemente cueste menos, pero hay que medirlo en un celular real: el INP
   no se puede medir en laboratorio sin tocar la página.
 - Teclado: el orden es el de lectura (saltar al contenido, barra, botones de cada sección, el campo del nombre,
-  pie) y todo tiene contorno dorado de 2 px (la migración lo pasa a blanco).
+  pie) y todo tiene contorno blanco de 2 px.
 - Celular: sin scroll horizontal, áreas de toque de 44 px (salvo el enlace de la licencia, dentro de una
   oración) y con el texto al 200 % los títulos no se salen de la columna.
 - `impeccable` (audit): el detector marca el borde de color de la placa de nombre; es el componente que define
@@ -173,17 +172,26 @@ aislados de unos 100 ms, que pueden notarse como un salto).
   - Las placas de Tito y de Coca quedaban bajo la barra de navegación en escritorio (el borde superior estaba en
     y = 61 y la barra llega a 64). Como la placa se ubica por su centro, el margen superior pasó de 76 a 88 px.
     Medido en 1440, 390 y 844 x 390: ninguna placa tapada.
-  - La selección de texto es dorada con tinta oscura, como los botones; la migración la cambia (ALINEACION §2).
 - Excepción registrada en `.impeccable/config.json`: `side-tab` solo en `src/styles/landing.css`. Es el borde de
   equipo de la placa de nombre, que define `brand/COMPONENTES.md` §6. El detector queda en cero hallazgos.
 - Landing cerrada el 2026-11-07. Lo que queda para publicar, en [brand/ALINEACION.md](brand/ALINEACION.md) §5.
 
-### Después del cierre
+### Migración a blanco y negro (2026-11-14)
 
-- **Reflejo de moneda en los botones dorados** (2026-11-07, decisión del usuario). Está en `src/styles/base.css`,
-  dentro de `(hover: hover) and (pointer: fine)`, con su versión de movimiento reducido aparte. Contradice
-  `brand/PAGINAS.md` §4 y `brand/BRAND.md` (sin brillos ni degradés en botones) y el cliché 2 de esta biblia; por
-  eso queda como excepción documentada.
-- Pendiente: decidir si el reflejo se quita con la migración a blanco y negro. `brand/PAGINAS.md` §4 y `brand/BRAND.md` §3 no permiten brillos, así que la migración lo quita salvo que se decida otra cosa.
-- Sin verificar en el navegador todavía: el botón grande (`btn--big`), el foco por teclado y el recorrido en 768 y
-  390 con el efecto. Comparten la regla del hover, pero no se midieron.
+En la rama `diseno/blanco-negro`. La landing pasa al sistema del juego ([brand/ALINEACION.md](brand/ALINEACION.md) §2):
+
+- Hanken Grotesk autoalojada (`@fontsource-variable/hanken-grotesk`, eje de peso) en lugar de Archivo; sin
+  `font-stretch`. Los tokens se importan de `brand/tokens.css` (se borró la copia `src/styles/tokens.css`).
+- Botón principal, selección de texto, enlace de salto y foco en blanco con tinta negra; "te mira" en `--text`.
+- **Se quitó el reflejo de moneda** de los botones (era una excepción a `brand/PAGINAS.md` §4 y al cliché 2 de esta
+  biblia, decidida el 2026-11-07 con los botones dorados).
+- Títulos, botones y enlaces de la barra en mayúsculas, como pide `brand/BRAND.md` §4. En celular los títulos de
+  sección tienen un tope de 8,6vw (unos 33 px en 390, un poco menos que el mínimo de la marca) para quedar en dos líneas.
+- Barra con `logo-horizontal-mono-blanco.svg`; en el pie, el nombre escrito (`TRUKE` 800 + `ADOS` 400) en lugar de
+  `palabra.svg`. Ícono de la pestaña e ícono de iOS con el favicon del juego; `og.jpg` regenerada; `theme-color` `#0a0a0a`.
+- Créditos del pie en `--text-dim`: `--muted` (4,3:1) no llega a AA y los créditos son obligatorios.
+- Verificado: `typecheck` y `build`; el director completo en 1440, 768 y 390 (ida, vuelta, saltos, movimiento reducido
+  y sin 3D: todo coincide); sin errores ni scroll horizontal; detector de `impeccable` en cero sobre los archivos.
+  La landing no tiene tests ni lint.
+- Queda: la palabra del logo de la barra sigue en Archivo Expanded hasta que se rehagan los logos
+  ([brand/ALINEACION.md](brand/ALINEACION.md) §1).

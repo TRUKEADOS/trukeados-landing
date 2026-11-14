@@ -3,9 +3,9 @@
 Desde noviembre de 2026 el juego es blanco y negro, en Hanken Grotesk (ver [DESIGN.md](../DESIGN.md)). La mesa y los
 ambientes siguen a color. Esta es la lista de lo que todavía no coincide con ese sistema y de lo que queda pendiente.
 
-**Estado (2026-11-12)**: juego ✅, documentos de `brand/` y `DESIGN.md` ✅, `brand/tokens.css` ✅ (con alias heredados),
-`brand/lamina.html` ✅. Pendiente: logos (§1), landing (§2), detalles del juego (§3), y lo que queda para publicar la
-landing (§5).
+**Estado (2026-11-14)**: juego ✅, documentos de `brand/` y `DESIGN.md` ✅, `brand/tokens.css` ✅ (con alias heredados),
+`brand/lamina.html` ✅, landing ✅ en la rama `diseno/blanco-negro` (§2). Pendiente: logos (§1), detalles del juego (§3),
+y lo que queda para publicar la landing (§5).
 
 Prioridad: 🔴 se ve en la pantalla de entrada · 🟡 coherencia visual · ⚪ cuando se pueda.
 
@@ -44,19 +44,12 @@ node <repo>/brand/tools/build-logos.mjs . <repo>/brand/logo
 
 La geometría de la marca (`CARD`, `BACK`, `FRONT`, `swordLocal`) está al principio del script.
 
-## 2. La landing (`trukeados-landing`) 🔴
+## 2. La landing (`trukeados-landing`) ✅
 
-La landing sigue en el sistema anterior: Archivo autoalojada (`@fontsource-variable/archivo`), anchos de 78 a 125 %,
-botón principal dorado con reflejo de moneda, selección de texto dorada y "te mira" en dorado.
-
-| Archivo de la landing | Qué cambiar |
-|---|---|
-| `package.json` | `@fontsource-variable/archivo` → `@fontsource-variable/hanken-grotesk`. |
-| `src/styles/base.css` | `--font` a `'Hanken Grotesk Variable', 'Hanken Grotesk', …`; botón principal blanco con letra negra (hover `--accent-hover`); sacar el reflejo de moneda; selección de texto blanca con tinta negra. |
-| `src/styles/landing.css` | Sacar los `font-stretch` (no hacen nada con Hanken); títulos y rótulos en mayúsculas como en el juego; "te mira" en `--text`; el campo de paño, fuera. |
-| `src/styles/tokens.css` | Es una copia vieja (la trae `npm run sync`). La versión nueva está en `brand/tokens.css`, con el mismo contenido que la del juego; al migrar, `src/main.tsx` tiene que importar `../brand/tokens.css`. Los alias heredados evitan que se rompa antes de cambiar el CSS. |
-| `index.html` | Precargar Hanken Grotesk en lugar de Archivo; `theme-color` `#0a0a0a`. |
-| `src/ui/Footer.tsx`, `docs/CONTRATO.md`, `public/llms.txt` | Crédito de la tipografía: "Hanken Grotesk, de Hanken Design Co. (OFL)". |
+Migrada el 2026-11-14 en la rama `diseno/blanco-negro` (falta mergear a `main`): Hanken Grotesk autoalojada, tokens de
+`brand/tokens.css`, botón principal blanco sin el reflejo de moneda, títulos y botones en mayúsculas, logo mono blanco
+en la barra y el nombre escrito en el pie, íconos del juego. El detalle está en `docs/CONTRATO.md` de la landing
+(«Migración a blanco y negro»). Lo único que queda es la palabra del logo de la barra, que depende de §1.
 
 ## 3. Detalles del juego 🟡
 
