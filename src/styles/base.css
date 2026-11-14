@@ -70,7 +70,8 @@ canvas {
   font-family: var(--font);
   font-weight: 650;
   font-size: var(--btn-font);
-  letter-spacing: 0.04em;
+  letter-spacing: var(--track);
+  text-transform: uppercase; /* botones en mayúsculas con aire (brand/BRAND.md §4) */
   text-decoration: none;
   cursor: pointer;
   transition:
